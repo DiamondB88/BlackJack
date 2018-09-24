@@ -1,0 +1,50 @@
+#modal{
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  overflow: auto;
+  color: ghostwhite;
+  display: none;
+}
+#modal-textbox{
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 350px;
+  width: 550px;
+  border-radius: 2px;
+  margin: 150px auto;
+  padding: 2%;
+  line-height: 120%;
+}
+#modal-close {
+	text-align: right;
+}
+#modal h1{
+  padding-bottom: 15px;
+  text-align: center;
+}
+#modal p {
+  text-align: justify;
+}
+.modal-button {
+	padding: 14px 18px;
+	background-color: rgb(255, 0, 0);
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	color: white;
+	cursor: pointer;
+}
+#about-modal{
+  padding: 14px 18px;
+	background-color: rgb(255, 255, 255);
+	border: none;
+	outline: none;
+  border: black;
+	border-radius: 3px;
+	color: red;
+	cursor: pointer;
+}
