@@ -48,3 +48,25 @@
 	color: red;
 	cursor: pointer;
 }
+#hit img{
+  border: none;
+  width: 100px;
+  height: 100px;
+}
+#deal img{
+  border: none;
+  width: 100px;
+  height: 100px;
+}
+#stand img{
+  border:none;
+  width: 100px;
+  height: 100px;
+}
+.button-plays{
+  text-align: center;
+}
+#hit h1{
+  text-align: center;
+  background: rgba(0, 0, 0, 0);
+}
