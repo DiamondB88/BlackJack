@@ -19,10 +19,6 @@
       </div>
     </div>
 
-    <div class="reset">
-      <button type="button" name="reset">Next Round</button>
-    </div>
-
     <div class="game">
       <div class="background">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT98nraNWvHzAwaXkEw0hIVIe5euYJQ1oc8GT3yu7zb5l_6F9mG" alt="Blackjack 21">
@@ -30,7 +26,9 @@
       <div class="container">
         <div id="cash">Cash:$1000</div>
         <div id="dealer">Dealer</div>
-        <div id="bet"><input type="text" name="Bet" value="Bet"></div>
+        <div id="player"><input type="text" value="Name"></div>
+        <div id="bet"> <button type="bet">Bet</button></div>
+        <!-- <div id="bet">Bet:$10</div> -->
 
         <div class="button-plays">
           <button id="hit" name="button"><img src="hitme.png" alt="hitme">Hit Me</button>
@@ -38,15 +36,16 @@
           <button id="stand" name="button"><img src="stand.png" alt="stand">Stand</button>
         </div>
 
+        <div class='fullbar clearfix'>
+          <div id='startover' class='hide button'>Start Over</div>
+        </div>
 
-
-        <div class="gameboard">
+        <div id="gameboard" class="clearfix">
           <div class="dealer-cards"></div>
           <div class="player1-cards"></div>
         </div>
       </div>
     </div>
-
 
   </body>
 </html>
