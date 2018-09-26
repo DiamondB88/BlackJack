@@ -25,14 +25,15 @@ $(() => {
 
   const face = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 
-  const suits = ['Diamonds','Clubs','Hearts','Spades'];
+  const suits = ['♦','♣','♥','♠'];
 
   class Card {
-    constructor(name,face,suit,value) {
+    constructor(name,face,suit,value,color) {
       this.name=name;
       this.face=face;
       this.suit=suit;
       this.value=value;
+      this.color = color;
     }
   }
 
@@ -44,16 +45,29 @@ $(() => {
     for (var i = 0; i < face.length; i++) {
       for (var j = 0; j < suits.length; j++) {
         let placeHolder;
+        // set face card value
         if (i > 9) {
-          placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j],10 )
-        }else {
-          placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j], i + 1)
+          if (i%2 == 0) {
+            placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j],10, 'red')
+          }else {
+            placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j],10, 'black')
+          }
+        }
+          // regular values
+        else {
+          if (i%2 == 0) {
+            placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j], i + 1,'red')
+          }
+          else {
+            placeHolder = new Card(face[i] + ' of' + suits[j],face[i],suits[j], i + 1,'black')
+          }
         }
         deck.push(placeHolder)
       }
     }
   }
   shuffleDeck();
+
 
   class Gamehand {
     constructor(player,cards,value){
@@ -88,11 +102,12 @@ $(() => {
   }
 
   const firstDeal = () => {
-    for (var i = 0; i < 2; i++) {
+      hitMe(playerHand);
+      hitMe(dealerHand);
       hitMe(playerHand);
       hitMe(dealerHand);
       showDealerValue()
-    }
+
   }
 
   const showPlayerValue = () => {
@@ -138,67 +153,43 @@ $(() => {
     return total;
   }
 
-  const createCards = ( createPlayer, createColor, createFace, createSuit, createHand) => {
-    console.log('in create cards');
+  const createCards = ( player,card) => {
+    console.log(player);
+    console.log(card);
+    // console.log('in create cards');
     let str = $('<div>').addClass('card-pile')
-    console.log(str);
-    str = str.addClass(createColor);
-    console.log(createFace);
-    str = str.text(createFace + createSuit);
-console.log(createPlayer);
-    if (createPlayer == 'player') {
-      console.log('heyheyhey');
+    // console.log(str);
+    str = str.addClass(card.color);
+    // console.log(createFace);
+    str = str.text(card.face + card.suit);
+// console.log(createPlayer);
+    if (player == 'player') {
+      // console.log('heyheyhey');
       $('.player1-cards').append(str);
-      if (createHand.cards.length == 1) {
+      if (card.length == 1) {
         $('.player1-cards > .card-pile').addClass('first')
       }
     }
     else {
       $('.dealer-cards').append(str);
-      if (createHand.cards.length == 1) {
+      if (card.length == 1) {
         $('.dealer-cards > .card-pile').addClass('first')
       }
     }
   }
   const hitMe = (hitHand) => {
-    const card = Math.floor((Math.random() * (deck.length - 1)));
-    let placeHolder1 = deck[card];
+    const card = deck.pop();
+    let placeHolder1 = card;
     hitHand.cards.push(placeHolder1);
     hitHand.value = getTotal(hitHand);
     console.log(hitHand);
-    if (deck[card].suit == 'Diamonds') {
       if (hitHand.player == 'player') {
-        createCards('player', 'red', deck[card].face, '♦',hitHand)
+        createCards('player', card)
       }
       else {
-        createCards('dealer', 'red', deck[card].face, '♦',hitHand)
+        createCards('dealer', card)
       }
-    }
-    if (deck[card].suite == 'Clubs') {
-      if (hitHand.player == 'player') {
-        createCards('player', 'black', deck[card].face, '♣',hitHand)
-      }
-      else {
-        createCards('dealer', 'black', deck[card].face, '♣',hitHand)
-      }
-    }
-    if (deck[card].suite == 'Spades') {
-      if (hitHand.player == 'player') {
-        createCards('player', 'black', deck[card].face, '♠',hitHand)
-      }
-      else {
-        createCards('dealer', 'black', deck[card].face, '♠',hitHand)
-      }
-    }
-    if (deck[card].suite == 'Hearts') {
-      if (hitHand.player == 'player') {
-        createCards('player', 'red', deck[card].face, '♥',hitHand)
-      }
-      else {
-        createCards('dealer', 'red', deck[card].face, '♥',hitHand)
-      }
-    }
-    deck.splice(card,1);
+
   }
 
   const dealer = () => {
