@@ -38,6 +38,24 @@ $(() => {
   }
 
   let deck = [];
+// Fisher Yates shuffle https://bost.ocks.org/mike/shuffle/
+  function shuffle(array) {
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
 
   const shuffleDeck = () => {
     deck=[];
@@ -65,6 +83,7 @@ $(() => {
         deck.push(placeHolder)
       }
     }
+    shuffle(deck);
   }
   shuffleDeck();
 
@@ -77,8 +96,8 @@ $(() => {
   }
 }
 
-  let playerHand = null;
-  let dealerHand = null;
+  let playerHand = {};
+  let dealerHand = {};
 
   const play = () => {
      playerHand = new Gamehand;
@@ -133,9 +152,9 @@ $(() => {
     let nums =[];
     for (var i = 0; i < addGamehand.cards.length; i++) {
       if (addGamehand.cards[i].face != 'A') {
-        nums.unshift(addGamehand.cards[i])
+        nums.unshift(addGamehand.cards[i].value)
       }else {
-        nums.push(addGamehand.cards[i]);
+        nums.push(addGamehand.cards[i].value);
       }
     }
     for (var i = 0; i < nums.length; i++) {
@@ -180,13 +199,17 @@ $(() => {
   const hitMe = (hitHand) => {
     const card = deck.pop();
     let placeHolder1 = card;
-    hitHand.cards.push(placeHolder1);
-    hitHand.value = getTotal(hitHand);
+    hitHand.cards.push(placeHolder1)
     console.log(hitHand);
       if (hitHand.player == 'player') {
+        console.log(playerHand);
+        playerHand.cards.push(card);
+        hitHand.value = getTotal(playerHand);
         createCards('player', card)
       }
       else {
+        dealerHand.cards.push(card);
+        hitHand.value = getTotal(dealerHand);
         createCards('dealer', card)
       }
 
